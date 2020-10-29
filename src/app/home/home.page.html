@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      To-Do List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" paddings>
+  <ion-item>
+    <ion-input type="text" placeholder="Enter task" [(ngModel)]="taskName"></ion-input>
+    <ion-button color="primary" (click)="addTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <div padding>
+    <ion-list>
+      <ion-item *ngFor="let todo of taskList; let i = index">
+        {{todo}}
+        <ion-buttons slot="end">
+          <ion-button clear (click)="updateTask(i)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button clear (click)="deleteTask(i)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-searchbar showCancelButton="always" [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let entry of formData; let i = index">
+      <ion-label>{{entry.val}}</ion-label>
+      <ion-checkbox color="primary" slot="end" [(ngModel)]="entry.isChecked" (ionChange)="updateIng(entry)"></ion-checkbox>
+    </ion-item>
+    <div *ngFor="let ing of selectedIng">
+      <h6>selected Options: {{ ing.val }}</h6>
+    </div>
+  </ion-list>
+</ion-content>
